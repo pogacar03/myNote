@@ -1,0 +1,17 @@
+version: 1
+
+capture:
+  preserve_followups: true
+  preserve_misconceptions: true
+  interview_answer: auto
+
+merge:
+  prefer_existing_file: true
+  one_file_per_question: false
+
+structure:
+  create_on_demand: true
+  max_recommended_depth: 2
+
+git:
+  mode: direct-commit
