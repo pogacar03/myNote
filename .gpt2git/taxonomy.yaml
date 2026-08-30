@@ -1,40 +1,44 @@
-version: 1
+version: 2
 
 root: knowledge
+
+# Taxonomy only decides the broad directory.
+# One Markdown file = one learning/interview question.
+# The filename must be the question itself (or a stable cleaned-up question),
+# never an aggregate topic filename such as mysql.md / spring.md / agent.md.
 
 routes:
   java:
     domain: languages
-    file: java.md
 
   spring:
     domain: frameworks
-    file: spring.md
 
   mysql:
     domain: database
-    file: mysql.md
+
+  sqlite:
+    domain: database
 
   redis:
     domain: cache
-    file: redis.md
 
   kafka:
     domain: messaging
-    file: kafka.md
 
   rag:
     domain: ai
-    file: rag.md
 
   agent:
     domain: ai
-    file: agent.md
 
   langgraph:
     domain: ai
-    file: agent.md
 
   agentscope:
     domain: ai
-    file: agent.md
+
+file_policy:
+  mode: one-question-per-file
+  filename: question
+  merge_key: semantic-question
