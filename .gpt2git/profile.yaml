@@ -1,0 +1,30 @@
+version: 1
+
+profile:
+  primary_domains:
+    - backend
+    - ai-engineering
+
+  languages:
+    - java
+
+  frameworks:
+    - spring-boot
+
+  data:
+    databases:
+      - mysql
+    caches:
+      - redis
+    messaging:
+      - kafka
+
+  ai:
+    - rag
+    - langgraph
+    - agentscope
+
+learning:
+  interview_mode: true
+  preserve_followups: true
+  preserve_misconceptions: true
