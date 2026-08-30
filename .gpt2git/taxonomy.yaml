@@ -1,0 +1,40 @@
+version: 1
+
+root: knowledge
+
+routes:
+  java:
+    domain: languages
+    file: java.md
+
+  spring:
+    domain: frameworks
+    file: spring.md
+
+  mysql:
+    domain: database
+    file: mysql.md
+
+  redis:
+    domain: cache
+    file: redis.md
+
+  kafka:
+    domain: messaging
+    file: kafka.md
+
+  rag:
+    domain: ai
+    file: rag.md
+
+  agent:
+    domain: ai
+    file: agent.md
+
+  langgraph:
+    domain: ai
+    file: agent.md
+
+  agentscope:
+    domain: ai
+    file: agent.md
