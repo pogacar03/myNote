@@ -1,5 +1,7 @@
 # 怎么合并 K 个升序链表？
 
+对应 LeetCode 23：合并 K 个升序链表（Merge k Sorted Lists）。
+
 ## 面试回答
 
 这题用 **小顶堆（PriorityQueue）**。
