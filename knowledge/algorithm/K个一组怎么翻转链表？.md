@@ -1,5 +1,7 @@
 # K 个一组怎么翻转链表？
 
+对应 LeetCode 25：K 个一组翻转链表（Reverse Nodes in k-Group）。
+
 ## 面试回答
 
 每一组先从 `groupPrev` 往后数 `k` 个节点，确认数量足够；不足 `k` 个直接结束，不翻转。
