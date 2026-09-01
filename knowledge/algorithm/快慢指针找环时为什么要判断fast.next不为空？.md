@@ -1,5 +1,7 @@
 # 快慢指针找环时为什么要判断 fast.next 不为空？
 
+对应 LeetCode 141：环形链表（Linked List Cycle）。
+
 ## 面试回答
 
 因为快指针每次走两步：
