@@ -1,5 +1,22 @@
 # SQL 中 AVG、SUM 和 IFNULL 怎么用？
 
+## 对应力扣题
+
+- **LC1934：确认率（Confirmation Rate）**
+- 重点：`AVG(condition)` 计算比例，`IFNULL(..., 0)` 处理没有确认记录的用户。
+
+```sql
+SELECT
+    s.user_id,
+    ROUND(IFNULL(AVG(c.action = 'confirmed'), 0), 2) AS confirmation_rate
+FROM Signups s
+LEFT JOIN Confirmations c
+ON s.user_id = c.user_id
+GROUP BY s.user_id;
+```
+
+---
+
 ## AVG
 
 ### 1. 普通求平均值
