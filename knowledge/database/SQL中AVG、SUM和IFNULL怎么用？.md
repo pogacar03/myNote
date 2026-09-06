@@ -85,6 +85,52 @@ AVG(action = 'confirmed')
 AVG(CASE WHEN action = 'confirmed' THEN 1 ELSE 0 END)
 ```
 
+### 6. AVG 展开成 SUM / COUNT 时，NULL 要注意
+
+如果字段 `x` **确定没有 NULL**：
+
+```sql
+AVG(x)
+= SUM(x) / COUNT(*)
+```
+
+如果字段 `x` **可能有 NULL**：
+
+```sql
+AVG(x)
+= SUM(x) / COUNT(x)
+```
+
+不要写：
+
+```sql
+SUM(x) / COUNT(*)
+```
+
+原因：
+
+```text
+COUNT(*)  → 所有行都计数，包括 x 为 NULL 的行
+COUNT(x)  → 只统计 x 不为 NULL 的行
+SUM(x)    → 忽略 NULL
+AVG(x)    → 忽略 NULL
+```
+
+例如：
+
+```text
+x = 10, 20, NULL
+
+SUM(x)   = 30
+COUNT(*) = 3
+COUNT(x) = 2
+AVG(x)   = 15
+```
+
+所以有 NULL 时要记：
+
+> **SUM / COUNT 手动展开 AVG 时，分母要 COUNT 这个字段，而不是 COUNT(*)。**
+
 ---
 
 ## SUM
@@ -187,6 +233,10 @@ AVG(condition)
 
 SUM(condition)
 = 条件成立次数（MySQL）
+
+有 NULL：
+AVG(x) = SUM(x) / COUNT(x)
+不要用 COUNT(*)
 
 IFNULL(x, default)
 = x 为 NULL 时使用默认值
