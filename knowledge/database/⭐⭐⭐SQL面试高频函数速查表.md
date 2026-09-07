@@ -902,7 +902,7 @@ PARTITION BY
 ```text
 日期
 DATEDIFF(a,b)        → 相差几天
-DATE_FORMAT          → 日期转格式 / 按月统计
+DATE_FORMAT(字段,'%Y-%m')  → 日期转格式 / 按月统计
 YEAR / MONTH         → 取年月
 BETWEEN              → 判断区间
 
