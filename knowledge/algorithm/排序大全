@@ -1,0 +1,206 @@
+//冒泡排序 n-1轮
+//第 i 轮，从 0 开始两两比较相邻元素，前一个比后一个大就交换，把当前未排序部分的最大值一路冒到最右边。
+class Solution {
+    public int[] sortArray(int[] nums) {
+        //n个数字的冒泡排序，最多需要n-1轮
+        for(int i=0;i<nums.length-1;i++){
+
+            boolean is_swap = false;
+            //每多一轮就有一个最大值放到右边有序，不需要再次遍历对比
+            for(int j=0;j<nums.length-1-i;j++){
+                if(nums[j]>nums[j+1]){
+                    is_swap=true;
+                    swap(nums,j,j+1);
+                }
+            }
+            if(!is_swap) break;//没交换说明已经有序，直接return
+        }return nums;
+    }
+    public void swap(int[] nums,int i,int j){
+        int temp = nums[i];
+        nums[i]=nums[j];
+        nums[j]=temp;
+
+    }
+
+冒泡排序（有 swapped 优化）
+最好 O(n)
+平均 O(n²)
+最坏 O(n²)
+
+选择排序
+最好 O(n²)
+平均 O(n²)
+最坏 O(n²)
+
+//选择排序 n-1轮
+//第 i 轮，从 i 到末尾找最小值，然后和 nums[i] 交换。最小值往左放
+class Solution {
+    public int[] sortArray(int[] nums) {
+
+        for (int i = 0; i < nums.length - 1; i++) {
+
+            int minIndex = i;
+
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[j] < nums[minIndex]) {
+                    minIndex = j;
+                }
+            }
+
+            swap(nums, i, minIndex);
+        }
+
+        return nums;
+    }
+
+    public void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+}
+
+
+
+//插入排序
+
+插入排序：
+拿 nums[i]
+→ 往前面的有序区间里插
+→ 前面比它大的全部右移
+
+最好：O(n)      // 本身已经有序
+平均：O(n²)
+最坏：O(n²)     // 完全逆序
+空间：O(1)
+
+
+class Solution {
+    public int[] sortArray(int[] nums) {
+//一开始默认第一个数已经有序
+        for (int i = 1; i < nums.length; i++) {
+
+            int cur = nums[i];
+            int j = i - 1;
+     //比cur大的全部右移
+            while (j >= 0 && nums[j] > cur) {
+                nums[j + 1] = nums[j];
+                j--;
+            }
+    //找到比cur小的插到右边
+            nums[j + 1] = cur;
+        }
+
+        return nums;
+    }
+}
+//归并排序。
+
+核心思想就是：
+
+把数组不断从中间拆成两半，直到每一部分只剩一个数；然后再把两个有序数组合并起来。
+
+
+
+class Solution {
+
+    public int[] sortArray(int[] nums) {
+        // 对整个数组 [0, nums.length - 1] 进行归并排序
+        mergeSort(nums, 0, nums.length - 1);
+        return nums;
+    }
+
+    public void mergeSort(int[] nums, int left, int right) {
+
+        // 区间只剩一个元素时，天然有序，不需要继续拆
+        if (left >= right) {
+            return;
+        }
+
+        // mid 是左半部分的结尾
+        // [left ... mid] [mid + 1 ... right]
+        int mid = left + (right - left) / 2;
+
+        // 先把左半部分排好序
+        mergeSort(nums, left, mid);
+
+        // 再把右半部分排好序
+        mergeSort(nums, mid + 1, right);
+
+        // 此时左右两边都已经有序
+        // 再把两个有序区间合并成一个有序区间
+        merge(nums, left, mid, right);
+    }
+
+    public void merge(int[] nums, int left, int mid, int right) {
+
+        // temp 用来暂时存放合并后的结果
+        // 当前需要合并的是 nums[left ... right]
+        int[] temp = new int[right - left + 1];
+
+        // i 指向左半部分的开头
+        // 左边范围：[left ... mid]
+        int i = left;
+
+        // j 指向右半部分的开头
+        // 右边范围：[mid + 1 ... right]
+        int j = mid + 1;
+
+        // k 指向 temp 当前要放元素的位置
+        int k = 0;
+
+        // 左右两边都还有元素时：
+        // 比较两边当前元素，谁小就先放进 temp
+        while (i <= mid && j <= right) {
+
+            if (nums[i] <= nums[j]) {
+                temp[k++] = nums[i++];
+            } else {
+                temp[k++] = nums[j++];
+            }
+        }
+
+        // 如果右边先走完了，
+        // 把左边剩下的元素直接放进 temp
+        while (i <= mid) {
+            temp[k++] = nums[i++];
+        }
+
+        // 如果左边先走完了，
+        // 把右边剩下的元素直接放进 temp
+        while (j <= right) {
+            temp[k++] = nums[j++];
+        }
+
+        // temp 是从下标 0 开始的
+        // 但它对应的是 nums 中 [left ... right] 这一段
+        //
+        // temp[0] -> nums[left]
+        // temp[1] -> nums[left + 1]
+        // temp[2] -> nums[left + 2]
+        //
+        // 所以写回原数组时要加 left
+        for (int p = 0; p < temp.length; p++) {
+            nums[left + p] = temp[p];
+        }
+    }
+}
+
+不断对半拆
+→ 一共 log n 层
+
+每一层合并所有元素
+→ 一共处理 n 个元素
+
+所以：
+n × log n
+= O(n log n)
+
+
+
+
+
+
+
+
