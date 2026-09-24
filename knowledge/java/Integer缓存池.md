@@ -55,35 +55,8 @@ System.out.println(a == b); // false
 
 > `new Integer(int)` 在较新的 Java 版本中已经被标记为 deprecated，不建议使用。
 
----
-
-## == 和 equals
-
-对于包装类：
-
-- `==`：比较两个引用是否指向同一个对象。
-- `equals()`：比较数值是否相等。
-
-例如：
-
-```java
-Integer a = 128;
-Integer b = 128;
-
-System.out.println(a == b);      // false
-System.out.println(a.equals(b)); // true
-```
-
----
 
 ## 面试回答
 
 > Integer 自动装箱底层调用 `Integer.valueOf()`。Java 默认通过 `IntegerCache` 缓存 -128 到 127 范围内的 Integer 对象，所以这个范围内自动装箱得到的对象可能是同一个引用；超出范围通常会创建新的对象。包装类比较数值时应该使用 `equals()`，不要依赖 `==`。
 
-## 易错点
-
-不要简单说“**-128~127 一开始就在堆里**”。
-
-更严谨的说法是：
-
-> Java 的 `IntegerCache` 会缓存 -128~127 范围内的 `Integer` 对象，调用 `Integer.valueOf()` 时会优先复用这些缓存对象。
